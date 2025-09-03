@@ -1,0 +1,30 @@
+# deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-rds-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: flask-rds-app
+  template:
+    metadata:
+      labels:
+        app: flask-rds-app
+    spec:
+      containers:
+      - name: flask-rds-app
+        image: shivaram1918/flask-rds-app:latest
+        ports:
+        - containerPort: 5000
+        env:
+        - name: DB_HOST
+          value: "ram-postgres.cbku88aui7ds.eu-north-1.rds.amazonaws.com"
+        - name: DB_NAME
+          value: "ramdb"
+        - name: DB_USER
+          value: "ramadmin"
+        - name: DB_PASS
+          value: "StrongPassword123!"
+
